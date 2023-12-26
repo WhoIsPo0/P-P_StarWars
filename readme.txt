@@ -1,3 +1,3 @@
 Hello my dear friends.
 
-This double pouya's mini project ;)
+This is double pouya's mini project ;)
