@@ -5,30 +5,28 @@
 
 using namespace std;
 
-void Chart();
-void s_chart();
-void attack();
+void defineChart();
+void PrintChart();
 void movement();
+void updateGame();
+void handleInput(char);
 
-int s, z;
+int ship_x, ship_y;
 int table1[10][2];
+int ship_position[2];
 
 int main()
 {
-    int Heal = 0;
+    int Heal = 3;
     srand(time(0));
-    Chart();
-    for (int i = 0; i < 3; i++)
-    {
-        s_chart();
-        cout << "Do you want to ATTACK ?(Press Y/N)";
-        cout << "Do you want to MOVE ?(Press L/R)";
-        Heal++;
-    }
+    defineChart();
+    PrintChart();
+    movement();
+
     return 0;
 }
 
-void Chart()
+void defineChart()
 {
     int ES_count = 0;
     while (ES_count != 10)
@@ -36,9 +34,9 @@ void Chart()
         table1[10][2];
 
         // Generates random coordinates for spaceship
-        s = (rand() % 10);
-        z = (rand() % 10);
-
+        ship_x = (rand() % 10);
+        ship_y = (rand() % 10);
+        ship_position[ship_x, ship_y];
         // Set of stars to ensure you have exactly 10 stars
         int starsSet[10][2];
 
@@ -49,7 +47,7 @@ void Chart()
             int y = rand() % 10;
 
             // Ensure the generated coordinates are not the spaceship coordinates or duplicate star coordinates
-            while ((x == s && y == z) || (i > 0 && (x == starsSet[i - 1][0] && y == starsSet[i - 1][1])))
+            while ((x == ship_x && y == ship_y) || (i > 0 && (x == starsSet[i - 1][0] && y == starsSet[i - 1][1])))
             {
                 x = rand() % 10;
                 y = rand() % 10;
@@ -59,57 +57,12 @@ void Chart()
 
             table1[i][0] = x;
             table1[i][1] = y;
-        }
-
-        for (int i = 0; i <= 10; i++)
-        {
-            for (int j = 0; j <= 9; j++)
-                cout << " ---";
-
-            cout << endl;
-
-            if (i <= 9)
-            {
-                for (int k = 0; k <= 10; k++)
-                {
-                    bool isStar = false;
-                    bool isSpaceShip = false;
-                    // Check if the current position is a star or a spaceship
-                    for (int l = 0; l < 10; l++)
-                    {
-                        if (i == table1[l][0] && k == table1[l][1])
-                        {
-                            isStar = true;
-                            ES_count++;
-                            break;
-                        }
-                        else if (i == s && k == z)
-                        {
-                            isSpaceShip = true;
-                            break;
-                        }
-                    }
-                    if (isStar)
-                    {
-                        cout << "| * ";
-                    }
-                    else if (isSpaceShip)
-                    {
-                        cout << "| @ ";
-                    }
-                    else
-                    {
-                        cout << "|   ";
-                    }
-                }
-
-                cout << endl;
-            }
+            ES_count++;
         }
     }
 }
 
-void s_chart()
+void PrintChart()
 {
     for (int i = 0; i <= 10; i++)
     {
@@ -132,7 +85,7 @@ void s_chart()
                         isStar = true;
                         break;
                     }
-                    else if (i == s && k == z)
+                    else if (i == ship_x && k == ship_y)
                     {
                         isSpaceShip = true;
                         break;
@@ -160,7 +113,7 @@ void s_chart()
 void movement()
 {
     char input;
-    cout << "Enter w, a, s, d to move, or enter q to quit: ";
+    cout << "Enter w, a, s, d to move, L or R to shoot or enter q to quit: ";
     do
     {
         input = toupper(getch());
@@ -168,18 +121,40 @@ void movement()
         {
         case 'W':
             cout << "W was pressed" << endl;
-            break;
+            ship_x--;
+            updateGame();
+			break;
         case 'A':
             cout << "A was pressed" << endl;
+            ship_y--;
+            updateGame();
             break;
         case 'S':
             cout << "S was pressed" << endl;
+            ship_x++;
+            updateGame();
             break;
         case 'D':
             cout << "D was pressed" << endl;
+            ship_y++;
+            updateGame();
+            break;
+        case 'R': //todo : complete shoot to right 
+            cout << "r was pressed" << endl;
+            updateGame();
+            break;
+        case 'L': //to do : complete shoot to left
+            cout << "L was pressed" << endl;
+            updateGame();
             break;
         default: // Handling invalid input
-            cout << "Invalid input. Please enter w, a, s, d, or q" << endl;
+            cout << "Invalid input. Please enter w, a, s, d,l or r or q" << endl;
         }
     } while (input != 'Q');
+}
+
+void updateGame()
+{
+    system("CLS"); 
+    PrintChart();
 }
