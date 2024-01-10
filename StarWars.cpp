@@ -7,6 +7,7 @@ using namespace std;
 struct GameData
 {
     int ship_x, ship_y;
+    int enemy_x , enemy_y ;
     int table1[10][2];
 };
 
@@ -35,9 +36,9 @@ int main()
 
 int defineChart(GameData &gameData)
 {
-    int ES_count = 0;
+    int enemy_count = 0;
 
-    while (ES_count != 10)
+    while (enemy_count != 10)
     {
         // Generates random coordinates for spaceship
         gameData.ship_x = rand() % 10;
@@ -49,21 +50,21 @@ int defineChart(GameData &gameData)
         // Generate random coordinates for enemies
         for (int i = 0; i < 10; i++)
         {
-            int x = rand() % 10;
-            int y = rand() % 10;
+             gameData.enemy_x = rand() % 10;
+             gameData.enemy_y = rand() % 10;
 
             // Ensure the generated coordinates are not the spaceship coordinates or duplicate star coordinates
-            while ((x == gameData.ship_x && y == gameData.ship_y) ||
-                   (i > 0 && (x == starsSet[i - 1][0] && y == starsSet[i - 1][1])))
+            while ((gameData.enemy_x == gameData.ship_x && gameData.enemy_y == gameData.ship_y) ||
+                   (i > 0 && (gameData.enemy_x == starsSet[i - 1][0] && gameData.enemy_y == starsSet[i - 1][1])))
             {
-                x = rand() % 10;
-                y = rand() % 10;
+                gameData.enemy_x = rand() % 10;
+                gameData.enemy_y = rand() % 10;
             }
-            starsSet[i][0] = x;
-            starsSet[i][1] = y;
+            starsSet[i][0] = gameData.enemy_x;
+            starsSet[i][1] = gameData.enemy_y;
 
-            gameData.table1[i][0] = x;
-            gameData.table1[i][1] = y;
+            gameData.table1[i][0] = gameData.enemy_x;
+            gameData.table1[i][1] = gameData.enemy_y;
         }
 
         for (int i = 0; i < 10; i++)
@@ -75,7 +76,7 @@ int defineChart(GameData &gameData)
                 {
                     if (i == gameData.table1[l][0] && k == gameData.table1[l][1])
                     {
-                        ES_count++;
+                        enemy_count++;
                         break;
                     }
                 }
@@ -214,10 +215,10 @@ bool updateGame(const GameData &gameData)
 
     return true;
 }
-char guideinput;
-void guide(char guideinput)
+char guide_input;
+void guide(char guide_input)
 {
-    switch (guideinput)
+    switch (guide_input)
     {
     case 'g': // general guide
         cout << "Enter w, a, s, d to move, L or R to shoot or enter q to quit: " << endl;
