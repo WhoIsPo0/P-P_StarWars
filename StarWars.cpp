@@ -11,12 +11,15 @@ struct GameData
     int table1[10][2];
 };
 
+int Heal = 3; // to do : dont forget to make this local
 int defineChart(GameData &gameData);
 int SaveChart(const GameData &gameData);
 void movement(GameData &gameData);
 bool updateGame(const GameData &gameData);
 void guide(char);
 bool damage(const GameData &gameData);
+void status(); // check your condition during game
+void game_over(int); // can also be bool and only check for heal == 0 and return true
 
 int main()
 {
@@ -24,11 +27,9 @@ int main()
     GameData gameData;
     srand(time(0));
     defineChart(gameData);
-    cout<< Heal;
-
-        SaveChart(gameData);
-        movement(gameData);
-
+    SaveChart(gameData);
+    movement(gameData);
+    game_over(Heal);
     return 0;
 }
 
@@ -131,6 +132,7 @@ int SaveChart(const GameData &gameData)
 
         cout << endl;
     }
+    return 0;
 }
 
 void movement(GameData &gameData)
@@ -200,6 +202,9 @@ void movement(GameData &gameData)
         case 'Q':
             cout << "Quitting the game." << endl;
             break;
+        case 'C': // shoot guide
+            status();
+            break;
         default: // Handling invalid input
             cout << "Invalid input. Please enter w, a, s, d, l, r, or q" << endl;
         }
@@ -210,6 +215,10 @@ bool updateGame(const GameData &gameData)
 {
     system("CLS");
     SaveChart(gameData);
+    if (damage(gameData))
+    {
+        Heal--;
+    }
 
     return true;
 }
@@ -243,8 +252,19 @@ bool damage(const GameData &gameData)
 {
     for (int i = 0; i < 10; i++)
     {
-        if (gameData.ship_x == gameData.enemy_x && gameData.ship_y == gameData.enemy_y)
+        if (gameData.ship_x == gameData.table1[i][0] && gameData.ship_y == gameData.table1[i][1])
             return true;
     }
     return false;
+}
+void status()
+{
+    cout << Heal << endl;
+}
+
+void game_over(int Heal)
+{
+    if (Heal == 0)
+        system("CLS");
+    cout << "game over";
 }
