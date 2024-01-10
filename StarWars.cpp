@@ -1,5 +1,6 @@
 #include <iostream>
 #include <time.h>
+#include <conio.h>
 
 using namespace std;
 
@@ -139,8 +140,7 @@ void movement(GameData &gameData)
     cout << "Enter w, a, s, d to move, L or R to shoot or enter q to quit: ";
     do
     {
-        cin >> input;
-        input = toupper(input);
+        input = toupper(getch());
         switch (input)
         {
         case 'W':
