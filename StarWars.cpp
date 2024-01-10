@@ -7,7 +7,7 @@ using namespace std;
 struct GameData
 {
     int ship_x, ship_y;
-    int enemy_x , enemy_y ;
+    int enemy_x, enemy_y;
     int table1[10][2];
 };
 
@@ -16,6 +16,7 @@ int SaveChart(const GameData &gameData);
 void movement(GameData &gameData);
 bool updateGame(const GameData &gameData);
 void guide(char);
+bool damage(const GameData &gameData);
 
 int main()
 {
@@ -23,13 +24,10 @@ int main()
     GameData gameData;
     srand(time(0));
     defineChart(gameData);
+    cout<< Heal;
 
-    while (Heal > 0)
-    {
         SaveChart(gameData);
         movement(gameData);
-        Heal--;
-    }
 
     return 0;
 }
@@ -50,8 +48,8 @@ int defineChart(GameData &gameData)
         // Generate random coordinates for enemies
         for (int i = 0; i < 10; i++)
         {
-             gameData.enemy_x = rand() % 10;
-             gameData.enemy_y = rand() % 10;
+            gameData.enemy_x = rand() % 10;
+            gameData.enemy_y = rand() % 10;
 
             // Ensure the generated coordinates are not the spaceship coordinates or duplicate star coordinates
             while ((gameData.enemy_x == gameData.ship_x && gameData.enemy_y == gameData.ship_y) ||
@@ -138,7 +136,7 @@ int SaveChart(const GameData &gameData)
 void movement(GameData &gameData)
 {
     char input;
-    cout << "Enter w, a, s, d to move, L or R to shoot or enter q to quit: ";
+    guide('g');
     do
     {
         input = toupper(getch());
@@ -239,4 +237,14 @@ void guide(char guide_input)
         cout << "enter l to shoot left enter r to shoot right enter q to quit" << endl;
         break;
     }
+}
+
+bool damage(const GameData &gameData)
+{
+    for (int i = 0; i < 10; i++)
+    {
+        if (gameData.ship_x == gameData.enemy_x && gameData.ship_y == gameData.enemy_y)
+            return true;
+    }
+    return false;
 }
