@@ -34,7 +34,7 @@ int main()
 
         SaveChart(gameData);
 
-        cout << "Do you want to Attack or Move? A or M." << endl;
+        cout << "Do you want to Attack or Move? A or M. you can press Q to quit" << endl;
         char attack_move = toupper(getch());
 
         if (attack_move == 'A')
@@ -44,6 +44,10 @@ int main()
         else if (attack_move == 'M')
         {
             movement(gameData);
+        }
+        else if (attack_move == 'Q')
+        {
+            return 0;
         }
         else
         {
@@ -169,7 +173,7 @@ int SaveChart(const GameData &gameData)
 void movement(GameData &gameData)
 {
 
-    cout << " Please enter w, a, s, d or q" << endl;
+    cout << " Please enter w, a, s, d to move or q to quit " << endl;
     char input;
 
     input = toupper(getch());
@@ -206,6 +210,7 @@ void movement(GameData &gameData)
         break;
     case 'Q':
         cout << "Quitting the game." << endl;
+
         break;
     default:
         cout << "Invalid input!!!";
