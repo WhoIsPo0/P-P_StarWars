@@ -63,7 +63,8 @@ int main()
         }
         else if (gameData.enemy == 0)
         {
-            SaveChart(gameData);
+            system("CLS");
+            
             cout << "YOU WON!!!";
             break;
         }
