@@ -35,17 +35,18 @@ int main()
         SaveChart(gameData);
 
         cout << "Do you want to Attack or Move? A or M. you can press Q to quit" << endl;
-        char attack_move = toupper(getch());
+        char attack_move;
+        cin >> attack_move;
 
-        if (attack_move == 'A')
+        if (attack_move == 'A' || attack_move == 'a' )
         {
             attack(gameData);
         }
-        else if (attack_move == 'M')
+        else if (attack_move == 'M' || attack_move == 'm')
         {
             movement(gameData);
         }
-        else if (attack_move == 'Q')
+        else if (attack_move == 'Q' || attack_move == 'q')
         {
             return 0;
         }
@@ -55,11 +56,13 @@ int main()
         }
         if (gameData.Heal == 0)
         {
+            SaveChart(gameData);
             cout << "YOU ARE A BIG LOOSER;)";
             break;
         }
         else if (gameData.enemy == 0)
         {
+            SaveChart(gameData);
             cout << "YOU WON!!!";
             break;
         }
@@ -179,52 +182,52 @@ void movement(GameData &gameData)
     input = toupper(getch());
     switch (input)
     {
-    case 'W':
-        if (gameData.ship_x > 0)
-        {
+        case 'W':
+            if (gameData.ship_x > 0)
+            {
 
-            gameData.ship_x--;
-        }
+                gameData.ship_x--;
+            }
 
-        break;
-    case 'A':
+            break;
+        case 'A':
 
-        if (gameData.ship_y > 0)
-        {
-            gameData.ship_y--;
-        }
+            if (gameData.ship_y > 0)
+            {
+                gameData.ship_y--;
+            }
 
-        break;
-    case 'S':
-        if (gameData.ship_x < 9)
-        {
+            break;
+        case 'S':
+            if (gameData.ship_x < 9)
+            {
 
-            gameData.ship_x++;
-        }
-        break;
-    case 'D':
-        if (gameData.ship_y < 9)
-        {
-            gameData.ship_y++;
-        }
-        break;
-    case 'Q':
-        cout << "Quitting the game." << endl;
+                gameData.ship_x++;
+            }
+            break;
+        case 'D':
+            if (gameData.ship_y < 9)
+            {
+                gameData.ship_y++;
+            }
+            break;
+        case 'Q':
+            cout << "Quitting the game." << endl;
 
-        break;
-    default:
-        cout << "Invalid input!!!";
-        break;
+            break;
+        default:
+            cout << "Invalid input!!!";
+            break;
     }
     for (int i = 0; i < 10; i++)
     {
 
         if (gameData.ship_x == gameData.table1[i][0] && gameData.ship_y == gameData.table1[i][1])
         {
-            gameData.Heal--;
-            gameData.enemy--;
             gameData.table1[i][0] = -10;
             gameData.table1[i][1] = -10;
+            gameData.Heal--;
+            gameData.enemy--;
             gameData.ship_x = gameData.startX;
             gameData.ship_y = gameData.startY;
         }
@@ -240,45 +243,45 @@ void attack(GameData &gameData)
     char attack_direction = toupper(getch());
     switch (attack_direction)
     {
-    case 'L':
-        for (int i = 0; i < 10; i++)
-        {
-            if (at_count == 1)
-                break;
-            for (int j = gameData.ship_y; j >= 0; j--)
+        case 'L':
+            for (int j = gameData.ship_y - 1; j >= 0; j--)  // Iterate over columns to the left of the spaceship
             {
-                if (gameData.table1[i][0] == gameData.ship_x && gameData.table1[i][1] == j)
-                {
-                    gameData.table1[i][0] = -10;
-                    gameData.table1[i][1] = -10;
-                    gameData.enemy--;
-                    at_count = 1;
+                if (at_count == 1)
                     break;
+                for (int i = 0; i < 10; i++)  // Iterate over rows
+                {
+                    if (gameData.table1[i][0] == gameData.ship_x && gameData.table1[i][1] == j)
+                    {
+                        gameData.table1[i][0] = -10;
+                        gameData.table1[i][1] = -10;
+                        gameData.enemy--;
+                        at_count = 1;
+                        break;
+                    }
                 }
             }
-        }
-        break;
+            break;
 
-    case 'R':
-        for (int i = 0; i < 10; i++)
-        {
-            if (at_count == 1)
-                break;
-            for (int j = gameData.ship_y; j < 10; j++)
+        case 'R':
+            for (int j = gameData.ship_y + 1; j < 10; j++)  // Iterate over columns to the right of the spaceship
             {
-                if (gameData.table1[i][0] == gameData.ship_x && gameData.table1[i][1] == j)
-                {
-                    gameData.table1[i][0] = -10;
-                    gameData.table1[i][1] = -10;
-                    gameData.enemy--;
-                    at_count = 1;
+                if (at_count == 1)
                     break;
+                for (int i = 0; i < 10; i++)  // Iterate over rows
+                {
+                    if (gameData.table1[i][0] == gameData.ship_x && gameData.table1[i][1] == j)
+                    {
+                        gameData.table1[i][0] = -10;
+                        gameData.table1[i][1] = -10;
+                        gameData.enemy--;
+                        at_count = 1;
+                        break;
+                    }
                 }
             }
-        }
-        break;
+            break;
 
-    default:
-        cout << "Invalid attack direction!" << endl;
+        default:
+            cout << "Invalid attack direction!" << endl;
     }
 }
