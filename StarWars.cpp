@@ -1,6 +1,7 @@
 #include <iostream>
 #include <time.h>
 #include <conio.h>
+#include <cstdlib>
 
 using namespace std;
 
@@ -30,30 +31,31 @@ int main()
     while (true)
     {
         system("CLS");
-        cout << "HEAL : " << gameData.Heal << endl;
+        cout << "             STAR     WARS" << endl;
 
         SaveChart(gameData);
-
+        cout << "HEAL : " << gameData.Heal << endl;
         cout << "Do you want to Attack or Move? A or M. you can press Q to quit" << endl;
         char attack_move = toupper(getch());
 
-        switch (attack_move) {
+        switch (attack_move)
+        {
 
-            case 'A':
-                attack(gameData);
-                break;
+        case 'A':
+            attack(gameData);
+            break;
 
-            case 'M':
-                movement(gameData);
-                break;
+        case 'M':
+            movement(gameData);
+            break;
 
-            case 'Q':
-                return 0;
+        case 'Q':
+            return 0;
 
-            default:
-                cout << "invalid input!!!" << endl;
-            }
-
+        default:
+            cerr << "invalid input!!!" << endl;
+            system("pause");
+        }
 
         if (gameData.Heal == 0)
         {
@@ -64,15 +66,14 @@ int main()
         else if (gameData.enemy == 0)
         {
             system("CLS");
-            
+
             cout << "YOU WON!!!";
             break;
         }
     }
 
     return 0;
-
-    }
+}
 
 int defineChart(GameData &gameData)
 {
@@ -91,15 +92,15 @@ int defineChart(GameData &gameData)
         int rowEnemyCount[10] = {0};
 
         // Generate random coordinates for enemies
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++)
+        {
             int x, y;
 
             do
             {
                 x = rand() % 10;
                 y = rand() % 10;
-            }
-            while ((x == gameData.ship_x && y == gameData.ship_y) ||
+            } while ((x == gameData.ship_x && y == gameData.ship_y) ||
                      (rowEnemyCount[y] >= 9) ||
                      (i > 0 && (x == starsSet[i - 1][0] && y == starsSet[i - 1][1])));
 
@@ -190,42 +191,42 @@ void movement(GameData &gameData)
     input = toupper(getch());
     switch (input)
     {
-        case 'W':
-            if (gameData.ship_x > 0)
-            {
+    case 'W':
+        if (gameData.ship_x > 0)
+        {
 
-                gameData.ship_x--;
-            }
+            gameData.ship_x--;
+        }
 
-            break;
-        case 'A':
+        break;
+    case 'A':
 
-            if (gameData.ship_y > 0)
-            {
-                gameData.ship_y--;
-            }
+        if (gameData.ship_y > 0)
+        {
+            gameData.ship_y--;
+        }
 
-            break;
-        case 'S':
-            if (gameData.ship_x < 9)
-            {
+        break;
+    case 'S':
+        if (gameData.ship_x < 9)
+        {
 
-                gameData.ship_x++;
-            }
-            break;
-        case 'D':
-            if (gameData.ship_y < 9)
-            {
-                gameData.ship_y++;
-            }
-            break;
-        case 'Q':
-            cout << "Quitting the game." << endl;
+            gameData.ship_x++;
+        }
+        break;
+    case 'D':
+        if (gameData.ship_y < 9)
+        {
+            gameData.ship_y++;
+        }
+        break;
+    case 'Q':
+        cout << "Quitting the game." << endl;
 
-            break;
-        default:
-            cout << "Invalid input!!!";
-            break;
+        break;
+    default:
+        cout << "Invalid input!!!";
+        break;
     }
     for (int i = 0; i < 10; i++)
     {
@@ -251,45 +252,45 @@ void attack(GameData &gameData)
     char attack_direction = toupper(getch());
     switch (attack_direction)
     {
-        case 'L':
-            for (int j = gameData.ship_y - 1; j >= 0; j--)  // Iterate over columns to the left of the spaceship
+    case 'L':
+        for (int j = gameData.ship_y - 1; j >= 0; j--) // Iterate over columns to the left of the spaceship
+        {
+            if (at_count == 1)
+                break;
+            for (int i = 0; i < 10; i++) // Iterate over rows
             {
-                if (at_count == 1)
-                    break;
-                for (int i = 0; i < 10; i++)  // Iterate over rows
+                if (gameData.table1[i][0] == gameData.ship_x && gameData.table1[i][1] == j)
                 {
-                    if (gameData.table1[i][0] == gameData.ship_x && gameData.table1[i][1] == j)
-                    {
-                        gameData.table1[i][0] = -10;
-                        gameData.table1[i][1] = -10;
-                        gameData.enemy--;
-                        at_count = 1;
-                        break;
-                    }
+                    gameData.table1[i][0] = -10;
+                    gameData.table1[i][1] = -10;
+                    gameData.enemy--;
+                    at_count = 1;
+                    break;
                 }
             }
-            break;
+        }
+        break;
 
-        case 'R':
-            for (int j = gameData.ship_y + 1; j < 10; j++)  // Iterate over columns to the right of the spaceship
+    case 'R':
+        for (int j = gameData.ship_y + 1; j < 10; j++) // Iterate over columns to the right of the spaceship
+        {
+            if (at_count == 1)
+                break;
+            for (int i = 0; i < 10; i++) // Iterate over rows
             {
-                if (at_count == 1)
-                    break;
-                for (int i = 0; i < 10; i++)  // Iterate over rows
+                if (gameData.table1[i][0] == gameData.ship_x && gameData.table1[i][1] == j)
                 {
-                    if (gameData.table1[i][0] == gameData.ship_x && gameData.table1[i][1] == j)
-                    {
-                        gameData.table1[i][0] = -10;
-                        gameData.table1[i][1] = -10;
-                        gameData.enemy--;
-                        at_count = 1;
-                        break;
-                    }
+                    gameData.table1[i][0] = -10;
+                    gameData.table1[i][1] = -10;
+                    gameData.enemy--;
+                    at_count = 1;
+                    break;
                 }
             }
-            break;
+        }
+        break;
 
-        default:
-            cout << "Invalid attack direction!" << endl;
+    default:
+        cout << "Invalid attack direction!" << endl;
     }
 }
