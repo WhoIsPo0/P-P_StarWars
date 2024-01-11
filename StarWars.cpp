@@ -29,8 +29,9 @@ int main()
 
     while (true)
     {
-
+        system("CLS");
         cout << "HEAL : " << gameData.Heal << endl;
+
         SaveChart(gameData);
 
         cout << "Do you want to Attack or Move? A or M." << endl;
