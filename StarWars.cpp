@@ -35,25 +35,26 @@ int main()
         SaveChart(gameData);
 
         cout << "Do you want to Attack or Move? A or M. you can press Q to quit" << endl;
-        char attack_move;
-        cin >> attack_move;
+        char attack_move = toupper(getch());
 
-        if (attack_move == 'A' || attack_move == 'a' )
-        {
-            attack(gameData);
-        }
-        else if (attack_move == 'M' || attack_move == 'm')
-        {
-            movement(gameData);
-        }
-        else if (attack_move == 'Q' || attack_move == 'q')
-        {
-            return 0;
-        }
-        else
-        {
-            cout << "invalid input!!!" << endl;
-        }
+        switch (attack_move) {
+
+            case 'A':
+                attack(gameData);
+                break;
+
+            case 'M':
+                movement(gameData);
+                break;
+
+            case 'Q':
+                return 0;
+
+            default:
+                cout << "invalid input!!!" << endl;
+            }
+
+
         if (gameData.Heal == 0)
         {
             SaveChart(gameData);
@@ -69,7 +70,8 @@ int main()
     }
 
     return 0;
-}
+
+    }
 
 int defineChart(GameData &gameData)
 {
