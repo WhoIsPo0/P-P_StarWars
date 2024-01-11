@@ -86,24 +86,29 @@ int defineChart(GameData &gameData)
         // Set of stars to ensure you have exactly 10 stars
         int starsSet[10][2];
 
-        // Generate random coordinates for enemies
-        for (int i = 0; i < 10; i++)
-        {
-            int x = rand() % 10;
-            int y = rand() % 10;
+        // Keep track of the number of enemies in each row
+        int rowEnemyCount[10] = {0};
 
-            // Ensure the generated coordinates are not the spaceship coordinates or duplicate star coordinates
-            while ((x == gameData.ship_x && y == gameData.ship_y) ||
-                   (i > 0 && (x == starsSet[i - 1][0] && y == starsSet[i - 1][1])))
+        // Generate random coordinates for enemies
+        for (int i = 0; i < 10; i++) {
+            int x, y;
+
+            do
             {
                 x = rand() % 10;
                 y = rand() % 10;
             }
+            while ((x == gameData.ship_x && y == gameData.ship_y) ||
+                     (rowEnemyCount[y] >= 9) ||
+                     (i > 0 && (x == starsSet[i - 1][0] && y == starsSet[i - 1][1])));
+
             starsSet[i][0] = x;
             starsSet[i][1] = y;
 
             gameData.table1[i][0] = x;
             gameData.table1[i][1] = y;
+
+            rowEnemyCount[y]++;
         }
 
         for (int i = 0; i < 10; i++)
