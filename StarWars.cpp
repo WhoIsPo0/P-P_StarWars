@@ -14,8 +14,8 @@ struct GameData
     int enemy = 10;
 };
 
-int defineChart(GameData &gameData);
-int SaveChart(const GameData &gameData);
+int defineChart(GameData &gameData);     // initializes starting position of enemies and spaceship
+int SaveChart(const GameData &gameData); // prints chart according to initialized and changed values
 void movement(GameData &gameData);
 void attack(GameData &gameData);
 
@@ -31,7 +31,7 @@ int main()
     while (true)
     {
         system("CLS");
-        cout << "             STAR     WARS" << endl;
+        cout << "             STAR     WARS" << endl; // title of the game
 
         SaveChart(gameData);
         cout << "HEAL : " << gameData.Heal << endl;
