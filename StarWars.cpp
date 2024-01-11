@@ -18,6 +18,7 @@ int defineChart(GameData &gameData);     // initializes starting position of ene
 int SaveChart(const GameData &gameData); // prints chart according to initialized and changed values
 void movement(GameData &gameData);
 void attack(GameData &gameData);
+void star_quotes(int);
 
 int main()
 {
@@ -59,15 +60,17 @@ int main()
 
         if (gameData.Heal == 0)
         {
-            SaveChart(gameData);
-            cout << "YOU ARE A BIG LOOSER;)";
+
+            system("CLS");
+            star_quotes(0);
             break;
         }
         else if (gameData.enemy == 0)
         {
             system("CLS");
 
-            cout << "YOU WON!!!";
+            cout << "YOU WON!!!" << endl;
+            star_quotes(1);
             break;
         }
     }
@@ -293,4 +296,20 @@ void attack(GameData &gameData)
     default:
         cout << "Invalid attack direction!" << endl;
     }
+}
+void star_quotes(int qnum)
+{
+    if (qnum == 1)
+    {
+        srand(time(0));
+        int index = rand() % 5;
+        string quotes[5] = {"May the Force be with you.", "The Force Is What Gives A Jedi His Power.",
+                            "Wars not make one great ~ YODA ", "Your focus determines your reality", "You were the chosen one"};
+        cout << quotes[index];
+    }
+    if (qnum == 0)
+        cout << "just letting you know that YOU ARE A BIG LOOSER... " << endl
+             << "but let the past die .  " << endl
+             << "Kill it, if you have to. " << endl
+             << "That's the only way to become what you are meant to be.";
 }
