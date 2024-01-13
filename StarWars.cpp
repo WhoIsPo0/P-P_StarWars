@@ -1,3 +1,6 @@
+// Pouya Omidi 40212358002
+// Pouya tavakoli 40212358011
+
 #include <iostream>
 #include <time.h>
 #include <conio.h>
@@ -120,7 +123,7 @@ int defineChart(GameData &gameData)
         {
             for (int k = 0; k < 10; k++)
             {
-                // Check if the current position is a star or a spaceship
+                
                 for (int l = 0; l < 10; l++)
                 {
                     if (i == gameData.table1[l][0] && k == gameData.table1[l][1])
