@@ -14,4 +14,5 @@ You only have three lives, so be careful!
 
 ## How to play the game
 Start by deciding whether you want to move or you want to attack.
-After choosing what you want to do, you then move with WASD keys and attack to the left and right with L and R keys.
+After choosing what you want to do,
+you then move with WASD keys and attack to the left and right with L and R keys.
