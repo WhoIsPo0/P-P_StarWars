@@ -4,7 +4,7 @@
 Hello my dear friends.
 This is double Pouya's mini project ;)
 
-This game is made by:
+This game is made by: <br>
 **Pouya (Omidi && Tavakoli)** 
 
 The game is simple: you have a spaceship and there are enemies all around you.
@@ -16,3 +16,7 @@ You only have three lives, so be careful!
 Start by deciding whether you want to move or you want to attack.
 After choosing what you want to do,
 you then move with WASD keys and attack to the left and right with L and R keys.
+## game environment
+the game looks like this <br>
+
+![game environment](https://github.com/WhoIsPo0/P-P_StarWars/assets/69327223/1cba0034-0aa2-44ba-b21b-eaa1fbdcb967)
