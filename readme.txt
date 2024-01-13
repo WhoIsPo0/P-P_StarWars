@@ -1,5 +1,5 @@
 # STAR WARS
-![header photo](https://github.com/WhoIsPo0/P-P_StarWars/raw/main/readme%20pics/header%20photo.png)
+! [header photo](https://github.com/WhoIsPo0/P-P_StarWars/raw/main/readme%20pics/header%20photo.png)
 
 Hello my dear friends.
 This is double pouya's mini project ;)
